@@ -81,7 +81,7 @@ for i = 1 : num_of_mat_files
 % %                 Avg
                 par1_avg = nanmean(abs(par1Data),2);
                 par2_avg = nanmean(abs(par2Data),2);
-                par3_avg = nanmean(abs(par2Data),2);
+                par3_avg = nanmean(abs(par3Data),2);
                 
 % %                 
                 par2_avg(isnan(par1_avg)) = [];
