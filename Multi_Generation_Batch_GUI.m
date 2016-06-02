@@ -123,7 +123,7 @@ handles.Tint(isnan(handles.Tint)) = [];
 handles.Decision = handles.Decision(:);
 handles.Decision(isnan(handles.Decision)) = [];
 %}
-Multi_Generation_Batch ( handles.FullLayName, handles.datadirs ,handles.Spars, cell2mat(handles.normalize) , cell2mat(handles.ND),handles.User_Defined_Num_Of_Groups)
+Multi_Generation_Batch ( handles.FullLayName, handles.datadirs ,handles.Spars, cell2mat(handles.normalize) , cell2mat(handles.ND),handles.User_Defined_Num_Of_Groups,cell2mat(handles.IntensityAnalysis))
 
 
 % --- Executes on button press in Select_Renaming.

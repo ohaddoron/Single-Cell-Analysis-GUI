@@ -1,4 +1,4 @@
-function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize , ND, User_Defined_Num_Of_Groups)
+function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize , ND, User_Defined_Num_Of_Groups,intensityDecision)
 
 %% Loading parameters
     addpath(genpath(pwd));
@@ -30,11 +30,11 @@ function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize 
     parBG = Control.bar_graph_parameters;
     par1 = cat(2,Control.par1_1_parameters,Control.par1_2_parameters);
     par2 = Control.par2_1_parameters;
+    
+    
     parSummaryTable = Control.summary_table_parameters;
-    if ND == 3
-        parSummaryTable = cat(2,parSummaryTable,summary_table_parameters_3D);
-    end
-    clear('Control');
+    
+%     clear('Control');
         
 %% Gathering experiments
     for n = 1 : numel(inputFolders)
@@ -44,7 +44,11 @@ function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize 
 %% Ploting figures
     Arrange.choice = 1;
     for n = 1 : numel(outputFolders)
-        if normalize(n) == 1
+        if intensityDecision(n) ~= 0
+            parTD = [parTD Control.intensity_parameters];
+            parBG = [parBG Control.intensity_parameters];
+        end
+        if normalize(n) ~= 0
             norm_par = unique([parTD, parBG, par1, par2]);
             normalized_graphs (outputFolders{n},norm_par,1,0)
             folderPath = fullfile(outputFolders{n},'Normalized');
@@ -52,6 +56,8 @@ function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize 
             folderPath = fullfile(outputFolders{n});
         end
         Multi_Generation_Plot_Figures ( folderPath, parTD , parBG, par1 , par2, Arrange,Spars )
+        parTD = Control.time_dependency_parameters;
+        parBG = Control.bar_graph_parameters;
         disp('Finished plotting figures');
     end
 %% PCA + Cluster
@@ -63,12 +69,16 @@ function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize 
         else
             folderPath(1) = outputFolders(n);
         end
+        if ND == 3
+            parSummaryTable = cat(2,parSummaryTable,summary_table_parameters_3D);
+        end
         TP.choice = true;
         TP.transpose = true;
         summaryTable(folderPath,parSummaryTable,folderPath{1},TP)
         ClusterAnalysis(fullfile(folderPath{1},'Cluster Analysis'));
         xlsPath = fullfile(folderPath,'Cluster Analysis','Summary Table.xls');
         Cluster( xlsPath{1} , [] , outputFolders{n}, 0 , User_Defined_Num_Of_Groups);
+        parSummaryTable = Control.summary_table_parameters;
         disp('Finished PCA + Cluster');
     end
     
