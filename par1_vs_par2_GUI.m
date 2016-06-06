@@ -90,8 +90,6 @@ At = temp.(name{1});
 pars = fieldnames(At);
 set(handles.par1,'String',pars);
 set(handles.par2,'String',pars);
-set(handles.par3,'String',pars);
-
 guidata(hObject,handles);
 
 % --- Executes on selection change in par1.
