@@ -22,7 +22,7 @@ function varargout = Multi_Parameter_Correlation_GUI(varargin)
 
 % Edit the above text to modify the response to help Multi_Parameter_Correlation_GUI
 
-% Last Modified by GUIDE v2.5 06-Jun-2016 11:15:06
+% Last Modified by GUIDE v2.5 06-Jun-2016 11:21:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -299,3 +299,7 @@ function checkbox2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox2
+addpath(genpath(pwd));
+load('Control.mat');
+handles.par3Chosen = Control.time_dependency_parameters;
+guidata(hObject,handles);

@@ -22,7 +22,7 @@ function varargout = Master_GUI(varargin)
 
 % Edit the above text to modify the response to help Master_GUI
 
-% Last Modified by GUIDE v2.5 25-May-2016 18:30:49
+% Last Modified by GUIDE v2.5 06-Jun-2016 11:22:33
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -270,3 +270,11 @@ function pushbutton31_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 ClusterAnalysis_GUI;
+
+
+% --- Executes on button press in pushbutton32.
+function pushbutton32_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton32 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Multi_Parameter_Correlation_GUI;
