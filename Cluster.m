@@ -3,7 +3,6 @@ function Cluster( xlsPath , folderPath , outputLocation, single,User_Defined_Num
 
     
     
-    
     warning('off','all');
     toPPT('close',1);
     path = '\\metlab22\G\RawGigaData\GigaDataLayout\Software\ImarisMatlabSPSS\PPTMasters';
