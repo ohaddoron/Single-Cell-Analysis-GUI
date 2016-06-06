@@ -24,7 +24,7 @@ for i = 1 : num_of_images
         curFluoIdx = find(~cellfun(@isempty,strfind(fluoTreatNames,dicTreatName)));
         filePathFluo = fullfile(folderPath,files(curFluoIdx).name);
         fileName{i} = strrep(strrep(strrep([files(curFluoIdx).name(12:14) files(curFluoIdx).name(19:end)],'NNN0',''),'.tif',''),'_',' ');
-        
+        disp(['loading file ' fileName{i}]);
         
         filePathDIC = fullfile(folderPath,files(dicIdx(i)).name);
         

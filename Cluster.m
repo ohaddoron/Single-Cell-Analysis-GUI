@@ -124,6 +124,11 @@ function Cluster( xlsPath , folderPath , outputLocation, single,User_Defined_Num
     else
 %         CGobj = clustergram(data,'RowLabels',treats,...
 %                                             'ColumnLabels',pars,'Standardize',StandardizeValue);
+        
+    try
+        CGobj = clustergram(zscore(data),'ColumnLabels',pars,'RowLabels',treats,'Standardize',StandardizeValue);
+    catch
+        treats = cellstr(num2str(cell2mat(treats)));
         CGobj = clustergram(zscore(data),'ColumnLabels',pars,'RowLabels',treats,'Standardize',StandardizeValue);
     end
     
@@ -424,74 +429,48 @@ function Cluster( xlsPath , folderPath , outputLocation, single,User_Defined_Num
     SlideNumber = SlideNumber + 1;
 
 
-
-    for mn = 1 : numel(num_of_groups)
-        len = 0;
-        for c = 1 : num_of_groups(mn)
-            len = max([len, sum(pcclusters{mn} == c)]);
-        end
-
-
-         close all force
-        for c = 1 : num_of_groups(mn)
-            curTreat = treats(pcclusters{mn} == c);
-        if c == 1
-            expID = curTreat;
-        end
-        if size(expID,1) < size(curTreat,1)
-            expID = [expID; cell(size(curTreat,1) - size(expID,1), size(expID,2))];
-        end
-        if size(expID,1) > size(curTreat,1)
-            curTreat = [curTreat; cell(abs(size(curTreat,1) - size(expID,1)), size(curTreat,2))];
-        end
-        if c ~= 1
-            expID = [expID curTreat];
-        end
-        end
-        
-        ClusterGroup = [];
-        ClusterGroupIdx = [];
-        for k = 1 : size(expID,2)
-            curCluster = expID(:,k);
-            idx = find(cellfun(@isempty,curCluster));
-            curCluster(idx) = [];
-            ClusterGroupIdx = [ClusterGroupIdx; repmat(k,length(curCluster),1)];
-            ClusterGroup = [ClusterGroup; curCluster];
-        end
-        ClusterGroupIdx = num2cell(ClusterGroupIdx);
-        ClusterGroup = [ClusterGroupIdx ClusterGroup];
-        Names = ClusterGroup(:,2);
-        cellLine = cellfun(@(x) x(19:22),Names(cellfun('length',Names) > 1),'un',0);
-        ClusterGroup = [ClusterGroup cellLine];
-        treatType = strrep(strrep(cellfun(@(x) x(23:end-4),Names(cellfun('length',Names) > 1),'un',0),'NNN0',''),'-','');
-        val = cellfun(@(x) numel(x),treatType);
-        cellType = cellfun(@(x) x(19:22),Names(cellfun('length',Names) > 1),'un',0);
-        newTreatType = cell(numel(cellType),max(val)/4);
-        for k = 1 : numel(treatType)
-            idx = 1;
-            for kk = 1 : numel(treatType{k})/4
-                newTreatType{k,kk} = treatType{k}(idx:idx+3);
-                idx = idx + 4;
+    try
+        for mn = 1 : numel(num_of_groups)
+            len = 0;
+            for c = 1 : num_of_groups(mn)
+                len = max([len, sum(pcclusters{mn} == c)]);
             end
-        end
-
-        treatType = newTreatType;
-        
-        ClusterGroup = [ClusterGroup treatType];
-        ClusterGroup = [ClusterGroup cellfun(@(x) x(end-3:end),Names(cellfun('length',Names) > 1),'un',0)];
-        xlswrite(fullfile(outputLocation,['Excel for pivot table ' num2str(num_of_groups(mn)) ' groups.xlsx']),ClusterGroup)
 
 
-        for n = 1 : size(expID,2)
+             close all force
+            for c = 1 : num_of_groups(mn)
+                curTreat = treats(pcclusters{mn} == c);
+            if c == 1
+                expID = curTreat;
+            end
+            if size(expID,1) < size(curTreat,1)
+                expID = [expID; cell(size(curTreat,1) - size(expID,1), size(expID,2))];
+            end
+            if size(expID,1) > size(curTreat,1)
+                curTreat = [curTreat; cell(abs(size(curTreat,1) - size(expID,1)), size(curTreat,2))];
+            end
+            if c ~= 1
+                expID = [expID curTreat];
+            end
+            end
 
-            curExpID = expID(:,n);
-            cellType = cellfun(@(x) x(19:22),curExpID(cellfun('length',curExpID) > 1),'un',0);
-            treatType = strrep(strrep(cellfun(@(x) x(23:end),curExpID(cellfun('length',curExpID) > 1),'un',0),'NNN0',''),'-','');
-            cellType = [cellType; cell(numel(curExpID)-numel(cellType),1)];
-            treatType = [treatType; cell(numel(curExpID)-numel(treatType),1)];
-
-
+            ClusterGroup = [];
+            ClusterGroupIdx = [];
+            for k = 1 : size(expID,2)
+                curCluster = expID(:,k);
+                idx = find(cellfun(@isempty,curCluster));
+                curCluster(idx) = [];
+                ClusterGroupIdx = [ClusterGroupIdx; repmat(k,length(curCluster),1)];
+                ClusterGroup = [ClusterGroup; curCluster];
+            end
+            ClusterGroupIdx = num2cell(ClusterGroupIdx);
+            ClusterGroup = [ClusterGroupIdx ClusterGroup];
+            Names = ClusterGroup(:,2);
+            cellLine = cellfun(@(x) x(19:22),Names(cellfun('length',Names) > 1),'un',0);
+            ClusterGroup = [ClusterGroup cellLine];
+            treatType = strrep(strrep(cellfun(@(x) x(23:end-4),Names(cellfun('length',Names) > 1),'un',0),'NNN0',''),'-','');
             val = cellfun(@(x) numel(x),treatType);
+            cellType = cellfun(@(x) x(19:22),Names(cellfun('length',Names) > 1),'un',0);
             newTreatType = cell(numel(cellType),max(val)/4);
             for k = 1 : numel(treatType)
                 idx = 1;
@@ -503,19 +482,47 @@ function Cluster( xlsPath , folderPath , outputLocation, single,User_Defined_Num
 
             treatType = newTreatType;
 
+            ClusterGroup = [ClusterGroup treatType];
+            ClusterGroup = [ClusterGroup cellfun(@(x) x(end-3:end),Names(cellfun('length',Names) > 1),'un',0)];
+            xlswrite(fullfile(outputLocation,['Excel for pivot table ' num2str(num_of_groups(mn)) ' groups.xlsx']),ClusterGroup)
 
-            try
-                newExpID = [newExpID curExpID cellType treatType];
-            catch
-                newExpID =  [curExpID cellType treatType];
+
+            for n = 1 : size(expID,2)
+
+                curExpID = expID(:,n);
+                cellType = cellfun(@(x) x(19:22),curExpID(cellfun('length',curExpID) > 1),'un',0);
+                treatType = strrep(strrep(cellfun(@(x) x(23:end),curExpID(cellfun('length',curExpID) > 1),'un',0),'NNN0',''),'-','');
+                cellType = [cellType; cell(numel(curExpID)-numel(cellType),1)];
+                treatType = [treatType; cell(numel(curExpID)-numel(treatType),1)];
+
+
+                val = cellfun(@(x) numel(x),treatType);
+                newTreatType = cell(numel(cellType),max(val)/4);
+                for k = 1 : numel(treatType)
+                    idx = 1;
+                    for kk = 1 : numel(treatType{k})/4
+                        newTreatType{k,kk} = treatType{k}(idx:idx+3);
+                        idx = idx + 4;
+                    end
+                end
+
+                treatType = newTreatType;
+
+
+                try
+                    newExpID = [newExpID curExpID cellType treatType];
+                catch
+                    newExpID =  [curExpID cellType treatType];
+                end
             end
+
+            expID = newExpID;
+            xlswrite(fullfile(outputLocation,['PCA and Cluster groups with ' num2str(num_of_groups(mn)) ' groups']) ,expID);
+            close all force;
+
+
         end
-
-        expID = newExpID;
-        xlswrite(fullfile(outputLocation,['PCA and Cluster groups with ' num2str(num_of_groups(mn)) ' groups']) ,expID);
-        close all force;
-
-        
+    catch
     end
     outputLocation = outputLocationtmp;
     

@@ -22,7 +22,7 @@ function varargout = par1_vs_par2_GUI(varargin)
 
 % Edit the above text to modify the response to help par1_vs_par2_GUI
 
-% Last Modified by GUIDE v2.5 25-Feb-2016 13:26:42
+% Last Modified by GUIDE v2.5 06-Jun-2016 09:08:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -90,6 +90,7 @@ At = temp.(name{1});
 pars = fieldnames(At);
 set(handles.par1,'String',pars);
 set(handles.par2,'String',pars);
+set(handles.par3,'String',pars);
 
 guidata(hObject,handles);
 
@@ -230,3 +231,71 @@ function checkbox1_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of checkbox1
 handles.normalize = get(hObject,'Value');
 guidata(hObject,handles);
+
+
+% --- Executes on selection change in par3.
+function par3_Callback(hObject, eventdata, handles)
+% hObject    handle to par3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns par3 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from par3
+items = get(hObject,'String');
+index_selected = get(hObject,'Value');
+%item_selected = items{index_selected};
+try
+    handles.par3Chosen = [handles.par3Chosen; items(index_selected)];
+catch
+    handles.par3Chosen = items(index_selected);
+end
+
+%handles.listbox2.String(index_selected) = [];
+items (index_selected) = [];
+set (handles.par3_chosen, 'String', handles.par3Chosen);
+set (handles.par3,'String',items);
+guidata(hObject, handles);
+
+% --- Executes during object creation, after setting all properties.
+function par3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to par3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in par3_chosen.
+function par3_chosen_Callback(hObject, eventdata, handles)
+% hObject    handle to par3_chosen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns par3_chosen contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from par3_chosen
+
+
+% --- Executes during object creation, after setting all properties.
+function par3_chosen_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to par3_chosen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in checkbox2.
+function checkbox2_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox2

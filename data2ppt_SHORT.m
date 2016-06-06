@@ -194,7 +194,7 @@ function data2ppt_SHORT(varargin)
             h.SunPlot = MC_Sun_plot_for_multiple(matfiles); 
             clear h;
 
-            if ND == 3
+            if ND(t) == 3
                 h = MC_Sun_plot_for_multiple_XZ( folder_path{t} );
                 h = MC_Sun_plot_for_multiple_YZ( folder_path{t} );
             end
@@ -246,7 +246,7 @@ function data2ppt_SHORT(varargin)
                     error('No intensity parameters found in the control file');
                 end
             end
-            if ND == 3
+            if ND(t) == 3
                 try
                     parMaps = [parMaps' Control.maps_parameters_3D];
                 catch
@@ -329,7 +329,7 @@ function data2ppt_SHORT(varargin)
             end
 
             Velocity_XVsVelocity_YVsTime(folder_path{t},concat(t));
-            if ND == 3
+            if ND(t) == 3
                 Velocity_XVsVelocity_ZVsTime(folder_path{t},concat(t));
                 Velocity_YVsVelocity_ZVsTime(folder_path{t},concat(t));
             end
@@ -392,7 +392,7 @@ function data2ppt_SHORT(varargin)
                 end
             end
 
-            if ND == 3
+            if ND(t) == 3
                 try
                     parSummaryTable = [parSummaryTable Control.summary_table_parameters_3D];
                 catch
