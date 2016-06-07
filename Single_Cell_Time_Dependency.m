@@ -1,4 +1,4 @@
-function Single_Cell_Time_Dependency ( folderPath , par , sort_y )
+function Single_Cell_Time_Dependency ( folderPath , par , sort_y , num_of_cells )
 
 files = dir(fullfile(folderPath,'*.mat'));
 disp(['opening ' folderPath]);
@@ -17,8 +17,9 @@ for i = 1 : num_of_mat_files
         occ = sum(~isnan(At.(par{j})),1);
         [~,idx] = sort(occ,'descend');
         try
-            idx = idx(1:200);
+            idx = idx(1:num_of_cells);
         catch
+            warndlg('Unable to select this many cells');
             idx = idx(1:end);
         end
         data = At.(par{j})(:,idx);
@@ -72,6 +73,7 @@ for j = 1 : numel(par)
         saveas(h(i),fullfile(outPath,strrep(par{j},'_',' '),'Images',[ttl{i} '.tiff']));
     end
 end
+disp('Single Cell Time Dependency - Done!');
         
         
         

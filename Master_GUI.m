@@ -22,7 +22,7 @@ function varargout = Master_GUI(varargin)
 
 % Edit the above text to modify the response to help Master_GUI
 
-% Last Modified by GUIDE v2.5 07-Jun-2016 08:29:56
+% Last Modified by GUIDE v2.5 07-Jun-2016 08:40:32
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -279,3 +279,11 @@ function pushbutton32_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Multi_Parameter_Correlation_GUI;
+
+
+% --- Executes on button press in pushbutton33.
+function pushbutton33_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton33 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Single_Cell_Time_Dependency_GUI;
