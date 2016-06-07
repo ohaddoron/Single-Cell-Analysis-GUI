@@ -1,6 +1,6 @@
 function Multi_Parameter_Correlation ( folderPath , par1, par2, par3,normalize)
 
-
+warning('off','all');
 files = dir(fullfile(folderPath,'*.mat'));
 num_of_mat_files = numel(files);
 disp(['Opening : ' folderPath]);
@@ -142,7 +142,7 @@ title(ttl);
 axis tight;
 ax = [get(gca,'XLim'); get(gca,'YLim')];
 % set(gca,'XLim',[min(ax(:)) max(ax(:))],'YLim',[min(ax(:)) max(ax(:))]);
-                
+disp('Multi Parameter Correlation - Done!');                
                 
                 
                 

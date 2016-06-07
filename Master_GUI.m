@@ -22,7 +22,7 @@ function varargout = Master_GUI(varargin)
 
 % Edit the above text to modify the response to help Master_GUI
 
-% Last Modified by GUIDE v2.5 06-Jun-2016 11:22:33
+% Last Modified by GUIDE v2.5 07-Jun-2016 08:29:56
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -253,6 +253,7 @@ function pushbutton27_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton27 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+addpath(genpath(fullfile(pwd,'Multi Generation Batch')));
 Multi_Generation_Batch_GUI;
 
 
