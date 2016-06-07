@@ -124,7 +124,7 @@ handles.Decision = handles.Decision(:);
 handles.Decision(isnan(handles.Decision)) = [];
 %}
 Multi_Generation_Batch ( handles.FullLayName, handles.datadirs ,handles.Spars, cell2mat(handles.normalize) , cell2mat(handles.ND),handles.User_Defined_Num_Of_Groups,cell2mat(handles.IntensityAnalysis))
-
+rmpath(genpath(pwd));
 
 % --- Executes on button press in Select_Renaming.
 function Select_Renaming_Callback(hObject, eventdata, handles)
@@ -165,7 +165,7 @@ for i = 1:handles.loop
     handles.FullLayName{i} = char(handles.FullLayName{i});
 end
 set(handles.LayoutList,'String',handles.FullLayName');
-rmpath(genpath(pwd));
+
 guidata(hObject,handles);
 
 % --- Executes on button press in Outdir_data.
@@ -191,7 +191,7 @@ for i = 1:handles.loop
     handles.datadirs{i} = char(handles.datadirs{i});
 end
 set(handles.OutdataList,'String',handles.datadirs');
-rmpath(genpath(pwd));
+
 guidata(hObject,handles);
 
 % --- Executes on selection change in ImarisList.
