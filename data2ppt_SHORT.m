@@ -319,7 +319,7 @@ function data2ppt_SHORT(varargin)
             numOfLayers = 7;
             layerWidth = 30;
             scale.choice = [1 1];
-            if scatterDecision(t) == 0 && ND ~= 3
+            if scatterDecision(t) == 0 && ND(t) ~= 3
                 try
                     h.Layers = Layers...
                         (folder_path{t},parLayers,numOfLayers,layerWidth,scale); 
@@ -437,7 +437,7 @@ function data2ppt_SHORT(varargin)
 %         createReport(xlsLayout2{t} , verStr , outputLocation3{t});
 %         
 %     end
-    Activate_toPowerPoint(xlsLayout2,outputLocation3,cell2mat(scatterDecision),cell2mat(intensityDescision),cell2mat(ND))
+    Activate_toPowerPoint(xlsLayout2,outputLocation3,scatterDecision,intensityDescision,ND)
         
         
     warning('on','all')

@@ -15,8 +15,8 @@ function normalized_graphs (varargin)
     
     A = {files.name}; % Gets the names of all the files in the folder
     B = cellfun(@(x) x(1:5),A(cellfun('length',A) > 1),'un',0); % Extracts the first 5 characters of all files 
-    
-    plateNames = unique(B); 
+%     cellLine = cellfun(@(x) x(19:22),A(cellfun('length',A) > 1),'un',0);
+%     plateNames = unique(B); 
     
     
     
@@ -30,8 +30,10 @@ function normalized_graphs (varargin)
         A = find(~cellfun(@isempty,strfind({files.name},files(i).name(1:5))));
         %B = find(~cellfun(@isempty,strfind({files.name},'SK00CON')));
         B = find(~cellfun(@isempty,strfind({files.name},'CON')));
+        C = find(~cellfun(@isempty,strfind({files.name},files(i).name(19:22))));
         
-        conIdx = intersect(A,B);
+        
+        conIdx = intersect(intersect(A,B),C);
         conFilePath = [folderPath '\' files(conIdx).name];
         temp = load(conFilePath);
         name = fieldnames(temp);
