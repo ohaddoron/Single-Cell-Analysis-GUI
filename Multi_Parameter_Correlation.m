@@ -111,28 +111,36 @@ for i = 1 : num_of_mat_files
     end
     close all;
 end
+disp('Multi Parameter Correlation - Done!');
 
 function scaleFigures (folderPath)
 
     files = dir(fullfile(folderPath,'*.fig'));
     ax = [];
+    c = [0 0];
     for i = 1 : numel(files)
         h(i) = openfig(fullfile(folderPath,files(i).name));
-        ax = cat(1,ax,[get(gca,'XLim') get(gca,'YLim')]);
+%         ax = cat(1,ax,[get(gca,'XLim') get(gca,'YLim')]);
+        ax(i) = gca;
+        cur_c = caxis;
+        c(1) = min([c(1),cur_c(1)]);
+        c(2) = max([c(2),cur_c(2)]);
     end
+    linkaxes(ax,'xy');
     for i = 1 : numel(files)
-%         set(get(h(i),'CurrentAxes'),'XLim',[min(ax(:)) max(ax(:))],'YLim',[min(ax(:)) max(ax(:))]);
+        set(get(h(i),'CurrentAxes'),'XLim',[min(ax(:,1)) max(ax(:,2))],'YLim',[min(ax(:,3)) max(ax(:,4))]);
         ttl = get(get(h(i),'CurrentAxes'),'title');
         ttl = ttl.String;
         savefig(h(i),fullfile(folderPath,ttl));
         saveas(h(i),fullfile(folderPath,'Images',[ttl '.tiff']));
+        caxis(c);
     end
     close all;
 
 function h = plotFigure ( par1, par2, par3,ttl,par1_name, par2_name, par3_name)
 
 h = figure('Visible','Off');
-scatter(par1,par2,8,par3,'filled');
+scatter(par1,par2,15,par3,'filled');
 colormap(jet);
 b = colorbar;
 xlabel(strrep(par1_name,'_',' '));
@@ -142,7 +150,7 @@ title(ttl);
 axis tight;
 ax = [get(gca,'XLim'); get(gca,'YLim')];
 % set(gca,'XLim',[min(ax(:)) max(ax(:))],'YLim',[min(ax(:)) max(ax(:))]);
-disp('Multi Parameter Correlation - Done!');                
+
                 
                 
                 
