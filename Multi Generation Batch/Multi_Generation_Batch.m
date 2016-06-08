@@ -25,7 +25,7 @@ function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize 
        errordlg('No power point templates were found in the specified path');
        error('No power point templates were found in the specified path'); 
     end
-    rmpath(genpath(pwd));
+%     rmpath(genpath(pwd));
     parTD = Control.time_dependency_parameters;
     parBG = Control.bar_graph_parameters;
     par1 = cat(2,Control.par1_1_parameters,Control.par1_2_parameters);
