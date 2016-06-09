@@ -70,6 +70,7 @@ function Multi_Generation_Batch ( inputFolders, outputFolders ,Spars, normalize 
             folderPath(1) = outputFolders(n);
         end
         if ND == 3
+            summary_table_parameters_3D = Control.summary_table_parameters_3D;
             parSummaryTable = cat(2,parSummaryTable,summary_table_parameters_3D);
         end
         TP.choice = true;
