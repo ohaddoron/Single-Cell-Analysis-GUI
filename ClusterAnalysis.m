@@ -30,7 +30,7 @@ function ClusterAnalysis(folderPath,varargin)
         end
         HFig(i) = figure('Visible','Off');
         HFig(i) = plot(CGobj);
-%         set(HFig(i),'position',get(0,'screensize'))
+        set(HFig(i),'position',get(0,'screensize'))
         saveas(HFig(i),[folderPath '\Image\Clustergram.tiff']);
         saveas(HFig(i),[folderPath '\Clustergram']);
         mkdir(fullfile(folderPath,'Row Names'));
