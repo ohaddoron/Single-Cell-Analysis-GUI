@@ -98,7 +98,7 @@ for i = 1 : num_of_mat_files
                 h = plotFigure ( par1_avg, par2_avg, par3_avg,ttl,par1{l},par2{m},par3{n});
                 for k = 1 : size(par1_avg,1)
                     txt = ['\leftarrow ' num2str(k * At.dt) ];
-                    text(par1_avg(k),par2_avg(k),txt)
+                    text(par1_avg(k),par2_avg(k),txt,'FontSize',6)
                 end
                 savefig(h,fullfile(outPath,'Avg',ttl));
                 if i == num_of_mat_files
@@ -117,23 +117,24 @@ function scaleFigures (folderPath)
 
     files = dir(fullfile(folderPath,'*.fig'));
     ax = [];
-    c = [0 0];
+    c = [];
+%     c = [inf -inf];
     for i = 1 : numel(files)
         h(i) = openfig(fullfile(folderPath,files(i).name));
-%         ax = cat(1,ax,[get(gca,'XLim') get(gca,'YLim')]);
-        ax(i) = gca;
-        cur_c = caxis;
-        c(1) = min([c(1),cur_c(1)]);
-        c(2) = max([c(2),cur_c(2)]);
+        ax = cat(1,ax,[get(gca,'XLim') get(gca,'YLim')]);
+%         ax(i) = gca;
+        c = cat(1,c,caxis);
     end
-    linkaxes(ax,'xy');
+%     linkaxes(ax,'xy');
     for i = 1 : numel(files)
         set(get(h(i),'CurrentAxes'),'XLim',[min(ax(:,1)) max(ax(:,2))],'YLim',[min(ax(:,3)) max(ax(:,4))]);
         ttl = get(get(h(i),'CurrentAxes'),'title');
         ttl = ttl.String;
+        set(0, 'CurrentFigure', h(i))
+        caxis([min(c(:,1)),max(c(:,2))]);
         savefig(h(i),fullfile(folderPath,ttl));
         saveas(h(i),fullfile(folderPath,'Images',[ttl '.tiff']));
-        caxis(c);
+        
     end
     close all;
 
