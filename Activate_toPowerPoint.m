@@ -101,7 +101,7 @@ function Activate_toPowerPoint(xlsLayout2,outputLocation3,scatterDecision,intens
             mkdir(InUse);            
             copyfile(PPTpath,InUse)
             PPTpath = strcat(InUse,'\',PPTfile(end).name);
-            toPowerPoint([outputLocation3{t} '\' EXPname{1} '\' EXPSUBname{1}],EXPname,EXPSUBname,curExp(3:end),PPTpath,scatterDecision{t},EXPData{t},verStr,intensityDescision{t},ND{t});
+            toPowerPoint([outputLocation3{t} '\' EXPname{1} '\' EXPSUBname{1}],EXPname,EXPSUBname,curExp(3:end),PPTpath,scatterDecision(t),EXPData(t),verStr,intensityDescision(t),ND(t));
             
             rmdir(InUse,'s') 
             
