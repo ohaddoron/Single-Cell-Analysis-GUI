@@ -22,7 +22,7 @@ function varargout = Master_GUI(varargin)
 
 % Edit the above text to modify the response to help Master_GUI
 
-% Last Modified by GUIDE v2.5 07-Jun-2016 15:54:45
+% Last Modified by GUIDE v2.5 09-Jun-2016 18:44:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -287,3 +287,11 @@ function pushbutton33_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Single_Cell_Time_Dependency_GUI;
+
+
+% --- Executes on button press in pushbutton34.
+function pushbutton34_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton34 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Parameter_vs_Vitality_GUI;

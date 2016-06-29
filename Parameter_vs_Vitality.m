@@ -58,7 +58,7 @@ for j = 1 : numel(par)
     
 end
     
-
+disp('Parameter vs Vitality - Done!');
             
 
 
