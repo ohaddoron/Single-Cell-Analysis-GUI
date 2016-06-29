@@ -32,7 +32,9 @@ function Cluster( xlsPath , folderPath , outputLocation, single,User_Defined_Num
         treats = raw(2:end,1);
         pars = raw(1,2:end);
         data = cell2mat(raw(2:end,2:end));
+        treats = treats(~any(isnan(data),2),:);
         data = data(~any(isnan(data),2),:);
+        
     else
         raw = raw';
         treats = raw(2:end,1);
@@ -112,18 +114,7 @@ function Cluster( xlsPath , folderPath , outputLocation, single,User_Defined_Num
         close(h(i));
     end
 
-
-
-
-
-
     StandardizeValue = 0;
-    if nargin >=4 && single ~= 0
-        CGobj = clustergram(zscore(data),'ColumnLabels',pars,'RowLabels',treats,'Standardize',StandardizeValue);
-    else
-%         CGobj = clustergram(data,'RowLabels',treats,...
-%                                             'ColumnLabels',pars,'Standardize',StandardizeValue);
-        
     try
         CGobj = clustergram(zscore(data),'ColumnLabels',pars,'RowLabels',treats,'Standardize',StandardizeValue);
     catch
@@ -147,7 +138,11 @@ function Cluster( xlsPath , folderPath , outputLocation, single,User_Defined_Num
 
 
     data = data - repmat(nanmean(data),size(data,1),1);
-    eva = evalclusters(data,'kmeans','Gap','KList',1:15,'ReferenceDistribution','PCA');
+    if single == 0
+        eva = evalclusters(data,'kmeans','Gap','KList',1:15,'ReferenceDistribution','PCA');
+    else
+        eva.OptimalK = 15;
+    end
     
     num_of_groups = cat(2,eva.OptimalK,User_Defined_Num_Of_Groups);
     for mn = 1 : numel(num_of_groups)
