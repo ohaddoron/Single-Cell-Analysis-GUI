@@ -123,7 +123,7 @@ handles.Decision = handles.Decision(:);
 handles.Decision(isnan(handles.Decision)) = [];
 %}
 handles.FullLayName = fullfile(handles.PathLayName,handles.FileLayName);
-Activate_toPowerPoint(handles.FullLayName,handles.datadirs,handles.ss,handles.IntensityAnalysis,handles.ND)
+Activate_toPowerPoint(handles.FullLayName,handles.datadirs,cell2mat(handles.ss),cell2mat(handles.IntensityAnalysis),cell2mat(handles.ND))
 
 
 % --- Executes on button press in Select_Renaming.

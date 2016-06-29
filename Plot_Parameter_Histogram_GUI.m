@@ -22,7 +22,7 @@ function varargout = Plot_Parameter_Histogram_GUI(varargin)
 
 % Edit the above text to modify the response to help Plot_Parameter_Histogram_GUI
 
-% Last Modified by GUIDE v2.5 07-Jun-2016 08:45:20
+% Last Modified by GUIDE v2.5 29-Jun-2016 13:17:58
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -80,15 +80,19 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles.scales.choice(1) = 0;
 handles.scales.choice(2) = 0;
-handles.foldername = uigetdir2('\\metlab21\Matlab','');
-
-files = dir([handles.foldername{1} '\*.mat']);
-temp = load([handles.foldername{1} '\' files(1).name]);
-names = fieldnames(temp);
-At = temp.(names{1});
-pars = fieldnames(At);
-set(handles.listbox1,'String',pars);
 handles.Concatanate = 0;
+for k = 1 : handles.num_of_folders
+    handles.foldername(k) = uigetdir2('\\metlab21\Matlab','');
+    if k == 1
+        files = dir([handles.foldername{1} '\*.mat']);
+        temp = load([handles.foldername{1} '\' files(1).name]);
+        names = fieldnames(temp);
+        At = temp.(names{1});
+        pars = fieldnames(At);
+        set(handles.listbox1,'String',pars);
+    end
+end
+
 guidata(hObject,handles);
 
 % --- Executes on button press in pushbutton2.
@@ -384,7 +388,7 @@ function pushbutton6_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton6 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-Plot_Parameter_Histogram ( handles.foldername{1} , handles.pars , handles.normalize )
+Plot_Parameter_Histogram ( handles.foldername , handles.pars , handles.normalize, handles.outputLocation{1} )
 
 
 function edit7_Callback(hObject, eventdata, handles)
@@ -418,4 +422,37 @@ function checkbox5_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox5
 handles.normalize = get(hObject,'Value');
+guidata(hObject,handles);
+
+
+
+function edit8_Callback(hObject, eventdata, handles)
+% hObject    handle to edit8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit8 as text
+%        str2double(get(hObject,'String')) returns contents of edit8 as a double
+handles.num_of_folders = str2double(get(hObject,'String'));
+guidata(hObject,handles);
+
+% --- Executes during object creation, after setting all properties.
+function edit8_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton7.
+function pushbutton7_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles.outputLocation = uigetdir2('\\metlab21\Matlab','');
 guidata(hObject,handles);

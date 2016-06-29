@@ -22,7 +22,7 @@ function varargout = Master_GUI(varargin)
 
 % Edit the above text to modify the response to help Master_GUI
 
-% Last Modified by GUIDE v2.5 09-Jun-2016 18:44:17
+% Last Modified by GUIDE v2.5 29-Jun-2016 10:39:41
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -295,3 +295,11 @@ function pushbutton34_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Parameter_vs_Vitality_GUI;
+
+
+% --- Executes on button press in pushbutton35.
+function pushbutton35_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton35 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Plot_Parameter_Histogram_GUI;
