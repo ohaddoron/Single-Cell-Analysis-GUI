@@ -85,7 +85,7 @@ for k = 1 : numel(folderPaths)
         mkdir(fullfile(outPath,strrep(par{j},'_',' '),'Images'));
         for i = 1 : num_of_mat_files
             h = figure('Visible','off');
-            histogram(graphs_data.(par{j})(:,i),-2:0.05:4,'Normalization','pdf');
+            histogram(graphs_data.(par{j})(:,i),-5:0.05:5,'Normalization','pdf');
             ttl{i} = strrep(strrep(files(i).name([12:14 19:end]),'NNN0',''),'.mat','');
             title(ttl{i});
             ylabel('# of occurrences');

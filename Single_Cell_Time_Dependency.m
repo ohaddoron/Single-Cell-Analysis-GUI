@@ -1,9 +1,9 @@
-function Single_Cell_Time_Dependency ( folderPath , par , sort_y , num_of_cells )
+function Single_Cell_Time_Dependency ( folderPath , par , sort_y , num_of_cells,outputLocation )
 
 files = dir(fullfile(folderPath,'*.mat'));
 disp(['opening ' folderPath]);
 num_of_mat_files = numel(files);
-outPath = fullfile(folderPath,'Single Cell Time Dependency');
+outPath = fullfile(outputLocation,'Single Cell Time Dependency');
 mkdir(outPath);
 for i = 1 : num_of_mat_files
     filePath = fullfile(folderPath,files(i).name);
